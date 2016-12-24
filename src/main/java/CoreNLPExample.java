@@ -19,7 +19,7 @@ public class CoreNLPExample {
         // Configure logger
         BasicConfigurator.configure(new NullAppender());
 
-        // Annotate document pipeline
+        // Initialize and annotate document pipeline
         String text = "Obama was born in Hawaii. He is our president. " +
                 "President Xi Jinping of China, on his first visit to the United States, " +
                 "showed off his familiarity with American history and pop culture on Tuesday night.";
