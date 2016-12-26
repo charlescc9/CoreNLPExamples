@@ -27,13 +27,15 @@ public class CoreNLPExample {
         StanfordCoreNLP pipeline = new StanfordCoreNLP(PropertiesUtils.asProperties("annotators", annotators));
         pipeline.annotate(document);
 
-        // Explore annotations
+        // Explore coref annotation
         for (CorefChain cc : document.get(CorefCoreAnnotations.CorefChainAnnotation.class).values()) {
             System.out.println(cc);
         }
 
+        // Explore other annotations
         for (CoreMap sentence: document.get(SentencesAnnotation.class)) {
             System.out.println("\nSentence: " + sentence.get(TextAnnotation.class));
+
             for (CoreLabel word: sentence.get(TokensAnnotation.class)) {
                 System.out.println("Word: " + word.get(TextAnnotation.class) +
                         ", Lemma: " + word.get(LemmaAnnotation.class) +
@@ -46,6 +48,7 @@ public class CoreNLPExample {
             System.out.println("Sentiment: " + sentence.get(SentimentCoreAnnotations.SentimentClass.class));
             System.out.println("Dependency parse: " + sentence.get(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class));
             System.out.println("Constituency parse: ");
+
             TreePrint treePrint = new TreePrint("penn");
             treePrint.printTree(sentence.get(TreeCoreAnnotations.TreeAnnotation.class));
         }

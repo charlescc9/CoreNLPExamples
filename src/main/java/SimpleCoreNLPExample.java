@@ -1,4 +1,5 @@
 // Exploration of the Stanford Simple CoreNLP API: stanfordnlp.github.io/CoreNLP/simple
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.varia.NullAppender;
 import edu.stanford.nlp.simple.*;
