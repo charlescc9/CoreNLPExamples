@@ -1,6 +1,7 @@
 // Exploration of the Stanford CoreNLP API: stanfordnlp.github.io/CoreNLP/api
 
-import edu.stanford.nlp.dcoref.CorefCoreAnnotations.*;
+import edu.stanford.nlp.hcoref.CorefCoreAnnotations;
+import edu.stanford.nlp.hcoref.data.CorefChain;
 import edu.stanford.nlp.ling.CoreAnnotations.*;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
@@ -22,12 +23,14 @@ public class CoreNLPExample {
 
         // Initialize and annotate document pipeline
         Annotation document = new Annotation("Barack Obama was born in Hawaii. He is the president. Obama was elected in 2008.");
-        String annotators = "tokenize, ssplit, pos, lemma, ner, parse, entitymentions, natlog, openie, sentiment";
+        String annotators = "tokenize, ssplit, pos, lemma, ner, parse, entitymentions, natlog, openie, sentiment, dcoref";
         StanfordCoreNLP pipeline = new StanfordCoreNLP(PropertiesUtils.asProperties("annotators", annotators));
         pipeline.annotate(document);
 
         // Explore annotations
-        System.out.println("Coreferences: " + document.get(CorefChainAnnotation.class));
+        for (CorefChain cc : document.get(CorefCoreAnnotations.CorefChainAnnotation.class).values()) {
+            System.out.println(cc);
+        }
 
         for (CoreMap sentence: document.get(SentencesAnnotation.class)) {
             System.out.println("\nSentence: " + sentence.get(TextAnnotation.class));
